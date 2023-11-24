@@ -84,9 +84,9 @@
         <div class="input-group">
             <label class="block text-white mb-2">Are you beginner?</label>
             <div class="flex items-center">
-                <input type="radio" id="yes" name="beginner" class="mr-2">
+                <input type="radio" id="yes" name="beginner" value="true" class="mr-2">
                 <label for="yes" class="text-white mr-4">Yes</label>
-                <input type="radio" id="no" name="beginner" class="mr-2">
+                <input type="radio" id="no" name="beginner" value="false" class="mr-2">
                 <label for="no" class="text-white">No</label>
             </div>
         </div>
@@ -106,24 +106,6 @@
 document.getElementById('hamburger').addEventListener('click', function() {
         document.getElementById('navbar').classList.toggle('active');
     });
-
-    // Function to show the success modal
-    function showSuccessModal() {
-    var modal = document.getElementById('success-modal');
-    modal.style.display = 'flex'; // Show the modal by setting display to flex
-}
-
-
-    // Function to close the success modal
-    function closeModal() {
-    console.log("Closing modal");
-    var modal = document.getElementById('success-modal');
-    modal.style.display = 'none'; // Hide the modal by setting display to none
-}
-
-
-
-
 
     // Load dropdown data from Mock API
         fetch('https://run.mocky.io/v3/3701a569-9836-4ccc-a2ce-b5d8db4cdcf3')
@@ -161,29 +143,28 @@ document.getElementById('hamburger').addEventListener('click', function() {
             });
         });
 
-    // Form submission handling
-    document.getElementById('contact-form').addEventListener('submit', function(event) {
-        event.preventDefault();
+// Form submission handling
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-        // Validation logic here
-        const email = document.getElementById('email').value;
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneNumber = document.getElementById('phone-number').value;
-        const phoneRegex = /^(\d{7})$/ || /^0(\d{10})$/;
+    // Validation logic here
+    const firstName = document.getElementById('first-name').value;
+    const lastName = document.getElementById('last-name').value;
+    const companySelect = document.getElementById('company');
+    const company = companySelect.options[companySelect.selectedIndex].text; // Get company name
+    const email = document.getElementById('email').value;
+    const areaCodeSelect = document.getElementById('area-code');
+    const areaCode = areaCodeSelect.value; // Get area code value directly
+    const phoneNumber = document.getElementById('phone-number').value;
+    const subjectSelect = document.getElementById('subject');
+    const subject = subjectSelect.options[subjectSelect.selectedIndex].text; // Get subject name
+    const isBeginner = document.querySelector('input[name="beginner"]:checked').value;
 
-        if (!emailRegex.test(email)) {
-            alert('Please enter a valid email address.');
-            return;
-        }
+    // Redirect to success.html and pass form data as query parameters
+    window.location.href = `success.html?first_name=${firstName}&last_name=${lastName}&company=${company}&subject=${subject}&email=${email}&areaCode=${areaCode}&phone=${phoneNumber}&beginner=${isBeginner}`;
+});
 
-        if (!phoneRegex.test(phoneNumber)) {
-            alert('Please enter a valid Turkish phone number.');
-            return;
-        }
 
-        // If validation passes, show the success modal
-        showSuccessModal();
-    });
 
 </script>
 </html>

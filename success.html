@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Success</title>
+  </head>
+  <body>
+    <h1>Form Submitted Successfully!</h1>
+    <p>Thank you for submitting the form. Here are the details:</p>
+
+    <ul>
+      <li><strong>Name:</strong> <span id="name"></span></li>
+      <li><strong>Company:</strong> <span id="company"></span></li>
+      <li><strong>Email:</strong> <span id="email"></span></li>
+      <li><strong>Phone:</strong> <span id="phone"></span></li>
+      <li><strong>Subject:</strong> <span id="subject"></span></li>
+      <li><strong>Are you a beginner?</strong> <span id="beginner"></span></li>
+    </ul>
+
+    <script>
+      // Function to parse query parameters from the URL
+      function getQueryVariable(variable) {
+        const query = window.location.search.substring(1);
+        const vars = query.split("&");
+        for (let i = 0; i < vars.length; i++) {
+          const pair = vars[i].split("=");
+          if (pair[0] === variable) {
+            return decodeURIComponent(pair[1]);
+          }
+        }
+        return null;
+      }
+
+      // Populate the elements with form data
+      const firstName = getQueryVariable("first_name");
+      const lastName = getQueryVariable("last_name");
+      const company = getQueryVariable("company");
+      const subject = getQueryVariable("subject");
+      const email = getQueryVariable("email");
+      const areaCode = getQueryVariable("areaCode"); // Corrected variable name
+      const phone = getQueryVariable("phone");
+      const beginner = getQueryVariable("beginner");
+
+      document.getElementById("name").textContent = `${firstName} ${lastName}`;
+      document.getElementById("company").textContent = company;
+      document.getElementById("email").textContent = email;
+      document.getElementById("phone").textContent = `(${areaCode}) ${phone}`; // Corrected variable name
+      document.getElementById("subject").textContent = subject;
+      document.getElementById("beginner").textContent =
+        beginner === "true" ? "Yes" : "No";
+    </script>
+  </body>
+</html>
